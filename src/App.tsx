@@ -43,6 +43,27 @@ function App() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const features = [
+  {
+    icon: Users,
+    title: "Community Travel",
+    description:
+      "Join like-minded adventurers aged 17-40 for fun, active, and outdoorsy travel experiences."
+  },
+  {
+    icon: Shield,
+    title: "Safe Space for Everyone",
+    description:
+      "We ensure a welcoming and safe environment for all travelers, especially solo female travelers."
+  },
+  {
+    icon: Heart,
+    title: "Customer Satisfaction",
+    description:
+      "Curated experiences at the right price - you know what you pay for, and you get what you pay for."
+  }
+];
+
   const itinerary = [
     {
       day: "Day 00",
@@ -256,9 +277,8 @@ function App() {
     {/* If you want to show stats, use a horizontal scroll */}
     <div className="flex gap-2 overflow-x-auto mt-3 pb-3">
       <div className="flex-shrink-0 bg-white/10 backdrop-blur rounded-lg px-3 py-2 min-w-[85px]">
-        <Calendar className="h-6 w-6 mx-auto mb-1 text-emerald-300" />
-        <p className="text-xs font-semibold">9 Days</p>
-        <p className="text-xs text-gray-300">Adventure</p>
+       
+       
       </div>
       {/* ... Repeat for other stats ... */}
     </div>
@@ -346,53 +366,60 @@ function App() {
 
 
       {/* Highlights Gallery */}
-       <section className="py-12 bg-gradient-to-br from-white via-emerald-50 to-cyan-50">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-10">
-          <h2 className="text-2xl sm:text-3xl md:text-5xl font-extrabold bg-gradient-to-r from-emerald-500 to-cyan-500 text-transparent bg-clip-text mb-2">
-            Experience the Magic
-          </h2>
-          <p className="text-sm sm:text-base text-gray-700 max-w-xs sm:max-w-md mx-auto leading-relaxed">
-            From living root bridges to crystal-clear rivers, discover nature’s masterpieces.
-          </p>
-        </div>
+  <section className="py-12 bg-gradient-to-br from-white via-emerald-50 to-cyan-50">
+  <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center mb-10 px-2">
+      <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-emerald-500 to-cyan-500 text-transparent bg-clip-text mb-4">
+        Experience the Magic
+      </h2>
+      <p className="text-base sm:text-lg text-gray-700 max-w-md mx-auto leading-relaxed">
+        From living root bridges to crystal-clear rivers, discover nature’s masterpieces.
+      </p>
+    </div>
 
-        {/* Mobile Swipeable Cards */}
-        <div className="flex md:hidden overflow-x-scroll space-x-6 pb-4 scrollbar-thin scrollbar-thumb-emerald-300 scrollbar-track-transparent">
-          {highlights.map((highlight, idx) => (
-            <div key={idx} className="flex-shrink-0 w-64 rounded-lg shadow-lg bg-white relative">
-              <img 
-                src={highlight.image}
-                alt={highlight.title}
-                className="w-full h-44 object-cover rounded-t-lg"
-              />
-              <div className="p-3">
-                <h3 className="text-lg font-semibold text-gray-900 truncate">{highlight.title}</h3>
-                <p className="text-xs text-gray-600 mt-1 truncate">{highlight.description}</p>
-              </div>
-            </div>
-          ))}
+    {/* Mobile Swipeable Cards with snapping & padding */}
+    <div className="flex md:hidden overflow-x-auto space-x-5 pb-6 snap-x snap-mandatory scroll-smooth">
+      {highlights.map((highlight, idx) => (
+        <div
+          key={idx}
+          className="flex-shrink-0 w-72 rounded-xl shadow-xl bg-white relative snap-center scroll-px-4"
+        >
+          <img
+            src={highlight.image}
+            alt={highlight.title}
+            className="w-full h-48 object-cover rounded-t-xl"
+          />
+          <div className="p-4">
+            <h3 className="text-lg font-bold text-gray-900 truncate">{highlight.title}</h3>
+            <p className="text-sm text-gray-600 mt-1 line-clamp-3">{highlight.description}</p>
+          </div>
         </div>
+      ))}
+    </div>
 
-        {/* Desktop and Tablet grids */}
-        <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {highlights.map((highlight, idx) => (
-            <div key={idx} className="group relative rounded-xl shadow-md bg-white overflow-hidden cursor-pointer hover:shadow-2xl transition-shadow duration-300">
-              <img
-                src={highlight.image}
-                alt={highlight.title}
-                className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
-              <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                <h3 className="text-xl font-bold mb-1">{highlight.title}</h3>
-                <p className="text-gray-200 text-sm">{highlight.description}</p>
-              </div>
-            </div>
-          ))}
+    {/* Desktop and Tablet grids with subtle hover scale and shadows */}
+    <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {highlights.map((highlight, idx) => (
+        <div
+          key={idx}
+          className="group relative rounded-2xl shadow-lg bg-white overflow-hidden cursor-pointer hover:shadow-2xl transition-shadow duration-300 transform hover:scale-[1.03]"
+          style={{ willChange: "transform, box-shadow" }}
+        >
+          <img
+            src={highlight.image}
+            alt={highlight.title}
+            className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent"></div>
+          <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+            <h3 className="text-xl font-extrabold mb-1">{highlight.title}</h3>
+            <p className="text-gray-200 text-sm line-clamp-2">{highlight.description}</p>
+          </div>
         </div>
-      </div>
-    </section>
+      ))}
+    </div>
+  </div>
+</section>
 
 
       {/* Pricing Section */}
@@ -474,91 +501,78 @@ function App() {
       </section>
 
       {/* Details Section */}
-      <section id="details" className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-16">
-            {/* Inclusions */}
-            <div className="fade-in">
-              <div className="bg-white rounded-2xl shadow-lg p-8">
-                <div className="flex items-center space-x-3 mb-6">
-                  <Check className="h-8 w-8 text-emerald-500" />
-                  <h3 className="text-2xl font-bold text-gray-900">What's Included</h3>
-                </div>
-                
-                <div className="space-y-4">
-                  {inclusions.map((item, index) => (
-                    <div key={index} className="flex items-start space-x-3">
-                      <Check className="h-5 w-5 text-emerald-500 mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-700">{item}</span>
-                    </div>
-                  ))}
-                </div>
+    <section id="details" className="py-20 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-16">
+          {/* Inclusions */}
+          <div className="fade-in">
+            <div className="bg-white rounded-3xl shadow-lg p-10 hover:shadow-2xl transition-shadow duration-300">
+              <div className="flex items-center space-x-4 mb-8">
+                <Check className="h-10 w-10 text-emerald-500" />
+                <h3 className="text-3xl font-extrabold text-gray-900">What's Included</h3>
+              </div>
+
+              <div className="space-y-5">
+                {inclusions.map((item, index) => (
+                  <div key={index} className="flex items-start space-x-4">
+                    <Check className="h-6 w-6 text-emerald-500 mt-1 flex-shrink-0" />
+                    <span className="text-gray-700 text-lg leading-relaxed">{item}</span>
+                  </div>
+                ))}
               </div>
             </div>
+          </div>
 
-            {/* Exclusions */}
-            <div className="fade-in">
-              <div className="bg-white rounded-2xl shadow-lg p-8">
-                <div className="flex items-center space-x-3 mb-6">
-                  <X className="h-8 w-8 text-red-500" />
-                  <h3 className="text-2xl font-bold text-gray-900">Not Included</h3>
-                </div>
-                
-                <div className="space-y-4">
-                  {exclusions.map((item, index) => (
-                    <div key={index} className="flex items-start space-x-3">
-                      <X className="h-5 w-5 text-red-500 mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-700">{item}</span>
-                    </div>
-                  ))}
-                </div>
+          {/* Exclusions */}
+          <div className="fade-in">
+            <div className="bg-white rounded-3xl shadow-lg p-10 hover:shadow-2xl transition-shadow duration-300">
+              <div className="flex items-center space-x-4 mb-8">
+                <X className="h-10 w-10 text-red-500" />
+                <h3 className="text-3xl font-extrabold text-gray-900">Not Included</h3>
+              </div>
+
+              <div className="space-y-5">
+                {exclusions.map((item, index) => (
+                  <div key={index} className="flex items-start space-x-4">
+                    <X className="h-6 w-6 text-red-500 mt-1 flex-shrink-0" />
+                    <span className="text-gray-700 text-lg leading-relaxed">{item}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* Why Choose Us */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16 fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-              Why Choose Travelocity
-            </h2>
-            <p className="text-xl text-gray-600">
-              Creating unforgettable experiences with safety, comfort, and adventure
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: Users,
-                title: "Community Travel",
-                description: "Join like-minded adventurers aged 17-40 for fun, active, and outdoorsy travel experiences."
-              },
-              {
-                icon: Shield,
-                title: "Safe Space for Everyone",
-                description: "We ensure a welcoming and safe environment for all travelers, especially solo female travelers."
-              },
-              {
-                icon: Heart,
-                title: "Customer Satisfaction", 
-                description: "Curated experiences at the right price - you know what you pay for, and you get what you pay for."
-              }
-            ].map((feature, index) => (
-              <div key={index} className="text-center fade-in group">
-                <div className="bg-emerald-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 group-hover:bg-emerald-500 transition-colors duration-300">
-                  <feature.icon className="h-8 w-8 text-emerald-600 group-hover:text-white transition-colors duration-300" />
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-4">{feature.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
-              </div>
-            ))}
-          </div>
+    <section className="py-20 bg-white">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10">
+        <div className="text-center max-w-3xl mx-auto mb-16 fade-in">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6">
+            Why Choose Travelocity
+          </h2>
+          <p className="text-lg md:text-xl text-gray-600 leading-relaxed">
+            Creating unforgettable experiences with safety, comfort, and adventure
+          </p>
         </div>
-      </section>
+
+        <div className="grid md:grid-cols-3 gap-12">
+          {features.map((feature, index) => (
+            <div
+              key={index}
+              className="text-center fade-in group p-8 rounded-3xl border border-gray-200 hover:border-emerald-500 transition-colors duration-300 shadow-sm hover:shadow-lg cursor-pointer"
+            >
+              <div className="mx-auto mb-6 w-20 h-20 rounded-full flex items-center justify-center bg-emerald-100 group-hover:bg-emerald-500 transition-colors duration-300">
+                <feature.icon className="h-10 w-10 text-emerald-600 group-hover:text-white transition-colors duration-300" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">{feature.title}</h3>
+              <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
 
       {/* Contact Section */}
       <section id="contact" className="py-20 bg-gray-900 text-white">
